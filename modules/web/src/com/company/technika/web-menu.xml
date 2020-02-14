@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
+    <menu id="application-technika" insertBefore="administration">
+        <item screen="technika_Vendor.browse"/>
+        <item screen="technika_DeviceType.browse"/>
+        <item screen="technika_Device.browse"/>
+        <item screen="technika_Component.browse"/>
+    </menu>
+</menu-config>

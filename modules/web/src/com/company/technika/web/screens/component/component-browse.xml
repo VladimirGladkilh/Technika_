@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://browseCaption"
+        focusComponent="componentsTable"
+        messagesPack="com.company.technika.web.screens.component">
+    <data>
+        <collection id="componentsDc"
+                    class="com.company.technika.entity.Component"
+                    view="component-view">
+            <loader id="componentsDl">
+                <query>
+                    <![CDATA[select e from technika_Component e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="componentsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="componentsTable"
+                dataLoader="componentsDl">
+            <properties include=".*"/>
+        </filter>
+        <dataGrid id="componentsTable"
+                  width="100%"
+                  dataContainer="componentsDc" editorEnabled="true">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+                <action id="excel" type="excel"/>
+            </actions>
+            <columns>
+                <column property="device"/>
+                <column property="serialNumber"/>
+                <column property="price"/>
+                <column property="lowPrice"/>
+                <column property="busy"/>
+                <column property="cost"/>
+            </columns>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="componentsTable.create"/>
+                <button id="editBtn" action="componentsTable.edit"/>
+                <button id="removeBtn" action="componentsTable.remove"/>
+                <button id="excelBtn" action="componentsTable.excel"/>
+            </buttonsPanel>
+        </dataGrid>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

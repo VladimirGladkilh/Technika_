@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://browseCaption"
+        focusComponent="devicesTable"
+        messagesPack="com.company.technika.web.screens.device">
+    <data>
+        <collection id="devicesDc"
+                    class="com.company.technika.entity.Device"
+                    view="device-view">
+            <loader id="devicesDl">
+                <query>
+                    <![CDATA[select e from technika_Device e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="devicesTable"
+            spacing="true">
+        <dataGrid id="devicesTable"
+                  width="100%"
+                  dataContainer="devicesDc" editorEnabled="true">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+                <action id="excel" type="excel"/>
+            </actions>
+            <columns>
+                <column property="model"/>
+                <column property="prim"/>
+                <column property="type"/>
+                <column property="vendor"/>
+            </columns>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="devicesTable.create"/>
+                <button id="editBtn" action="devicesTable.edit"/>
+                <button id="removeBtn" action="devicesTable.remove"/>
+                <button id="excelBtn" action="devicesTable.excel"/>
+            </buttonsPanel>
+        </dataGrid>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

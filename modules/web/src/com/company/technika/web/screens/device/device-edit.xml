@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.technika.web.screens.device">
+    <data>
+        <instance id="deviceDc"
+                  class="com.company.technika.entity.Device"
+                  view="device-edit">
+            <loader/>
+        </instance>
+        <collection id="typesDc" class="com.company.technika.entity.DeviceType" view="_minimal">
+            <loader id="typesLc">
+                <query>
+                    <![CDATA[select e from technika_DeviceType e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="vendorsDc" class="com.company.technika.entity.Vendor" view="_minimal">
+            <loader id="vendorsLc">
+                <query>
+                    <![CDATA[select e from technika_Vendor e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="AUTO"
+                width="AUTO"
+                modal="true"
+                forceDialog="true"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="deviceDc">
+            <column width="250px">
+                <textField id="modelField" property="model"/>
+                <textField id="primField" property="prim"/>
+                <lookupPickerField id="typeField" optionsContainer="typesDc" property="type">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                    </actions>
+                </lookupPickerField>
+                <lookupPickerField id="vendorField" optionsContainer="vendorsDc" property="vendor">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                    </actions>
+                </lookupPickerField>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://browseCaption"
+        focusComponent="deviceTypesTable"
+        messagesPack="com.company.technika.web.screens.devicetype">
+    <data>
+        <collection id="deviceTypesDc"
+                    class="com.company.technika.entity.DeviceType"
+                    view="_local">
+            <loader id="deviceTypesDl">
+                <query>
+                    <![CDATA[select e from technika_DeviceType e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="deviceTypesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="deviceTypesTable"
+                dataLoader="deviceTypesDl">
+            <properties include=".*"/>
+        </filter>
+        <dataGrid id="deviceTypesTable"
+                  width="100%"
+                  dataContainer="deviceTypesDc" editorEnabled="true">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+                <action id="excel" type="excel"/>
+            </actions>
+            <columns>
+                <column property="name"/>
+            </columns>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="deviceTypesTable.create"/>
+                <button id="editBtn" action="deviceTypesTable.edit"/>
+                <button id="removeBtn" action="deviceTypesTable.remove"/>
+                <button id="excelBtn" action="deviceTypesTable.excel"/>
+            </buttonsPanel>
+        </dataGrid>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

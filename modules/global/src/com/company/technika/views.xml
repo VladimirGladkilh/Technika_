@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+
+    <view entity="technika_Device" name="device-view" extends="_local">
+        <property name="type" view="_minimal"/>
+        <property name="vendor" view="_minimal"/>
+    </view>
+    <view entity="technika_Device" name="device-edit" extends="_local">
+        <property name="type" view="_minimal"/>
+        <property name="vendor" view="_minimal"/>
+    </view>
+    <view entity="technika_Component" name="component-view" extends="_local">
+        <property name="device" view="_minimal"/>
+    </view>
+</views>

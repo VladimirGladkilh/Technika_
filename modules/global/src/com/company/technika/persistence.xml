@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <persistence-unit name="Technika" transaction-type="RESOURCE_LOCAL">
+
+        <class>com.company.technika.entity.DeviceType</class>
+        <class>com.company.technika.entity.Vendor</class>
+        <class>com.company.technika.entity.Device</class>
+        <class>com.company.technika.entity.Component</class>
+    </persistence-unit>
+</persistence>
