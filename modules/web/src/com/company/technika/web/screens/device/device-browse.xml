@@ -18,6 +18,11 @@
                 width="800"/>
     <layout expand="devicesTable"
             spacing="true">
+        <filter id="filter"
+                applyTo="devicesTable"
+                dataLoader="devicesDl">
+            <properties include=".*"/>
+        </filter>
         <dataGrid id="devicesTable"
                   width="100%"
                   dataContainer="devicesDc" editorEnabled="true">

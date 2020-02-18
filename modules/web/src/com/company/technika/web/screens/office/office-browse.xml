@@ -18,6 +18,11 @@
                 width="800"/>
     <layout expand="officesTable"
             spacing="true">
+        <filter id="filter"
+                applyTo="officesTable"
+                dataLoader="officesDl">
+            <properties include=".*"/>
+        </filter>
         <dataGrid id="officesTable"
                   width="100%"
                   dataContainer="officesDc" editorEnabled="true">
