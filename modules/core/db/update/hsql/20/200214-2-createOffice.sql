@@ -1,0 +1,1 @@
+create unique index IDX_TECHNIKA_OFFICE_UNIQ_NAME on TECHNIKA_OFFICE (NAME) ;

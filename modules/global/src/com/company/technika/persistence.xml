@@ -6,5 +6,7 @@
         <class>com.company.technika.entity.Vendor</class>
         <class>com.company.technika.entity.Device</class>
         <class>com.company.technika.entity.Component</class>
+        <class>com.company.technika.entity.Post</class>
+        <class>com.company.technika.entity.Office</class>
     </persistence-unit>
 </persistence>

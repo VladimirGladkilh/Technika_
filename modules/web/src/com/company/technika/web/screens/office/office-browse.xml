@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://browseCaption"
+        focusComponent="officesTable"
+        messagesPack="com.company.technika.web.screens.office">
+    <data>
+        <collection id="officesDc"
+                    class="com.company.technika.entity.Office"
+                    view="_local">
+            <loader id="officesDl">
+                <query>
+                    <![CDATA[select e from technika_Office e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="officesTable"
+            spacing="true">
+        <dataGrid id="officesTable"
+                  width="100%"
+                  dataContainer="officesDc" editorEnabled="true">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+                <action id="excel" type="excel"/>
+            </actions>
+            <columns>
+                <column property="name"/>
+                <column property="city"/>
+                <column property="street"/>
+                <column property="house"/>
+                <column property="office"/>
+            </columns>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="officesTable.create"/>
+                <button id="editBtn" action="officesTable.edit"/>
+                <button id="removeBtn" action="officesTable.remove"/>
+                <button id="excelBtn" action="officesTable.excel"/>
+            </buttonsPanel>
+        </dataGrid>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

@@ -5,5 +5,7 @@
         <item screen="technika_DeviceType.browse"/>
         <item screen="technika_Device.browse"/>
         <item screen="technika_Component.browse"/>
+        <item screen="technika_Post.browse"/>
+        <item screen="technika_Office.browse"/>
     </menu>
 </menu-config>
