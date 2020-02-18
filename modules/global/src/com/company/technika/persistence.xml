@@ -8,5 +8,9 @@
         <class>com.company.technika.entity.Component</class>
         <class>com.company.technika.entity.Post</class>
         <class>com.company.technika.entity.Office</class>
+        <class>com.company.technika.entity.Payer</class>
+        <class>com.company.technika.entity.Contragent</class>
+        <class>com.company.technika.entity.Cost</class>
+        <class>com.company.technika.entity.Person</class>
     </persistence-unit>
 </persistence>

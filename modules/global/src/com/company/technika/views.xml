@@ -11,5 +11,16 @@
     </view>
     <view entity="technika_Component" name="component-view" extends="_local">
         <property name="device" view="_minimal"/>
+        <property name="cost" view="_minimal"/>
+    </view>
+    <view entity="technika_Cost" name="cost-browser" extends="_local">
+        <property name="contragent" view="_minimal"/>
+        <property name="mainDoc" view="_minimal"/>
+        <property name="upd" view="_minimal"/>
+        <property name="payer" view="_minimal"/>
+    </view>
+    <view entity="technika_Person" name="person-browser" extends="_local">
+        <property name="office" view="_minimal"/>
+        <property name="post" view="_minimal"/>
     </view>
 </views>

@@ -33,15 +33,16 @@ public class Component extends StandardEntity {
     @Column(name = "BUSY")
     protected Boolean busy;
 
-    @Column(name = "COST")
-    protected String cost;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COST_ID")
+    protected Cost cost;
 
-    public String getCost() {
-        return cost;
+    public void setCost(Cost cost) {
+        this.cost = cost;
     }
 
-    public void setCost(String cost) {
-        this.cost = cost;
+    public Cost getCost() {
+        return cost;
     }
 
     public Boolean getBusy() {

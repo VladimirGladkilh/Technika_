@@ -7,5 +7,9 @@
         <item screen="technika_Component.browse"/>
         <item screen="technika_Post.browse"/>
         <item screen="technika_Office.browse"/>
+        <item screen="technika_Payer.browse"/>
+        <item screen="technika_Contragent.browse"/>
+        <item screen="technika_Cost.browse"/>
+        <item screen="technika_Person.browse"/>
     </menu>
 </menu-config>

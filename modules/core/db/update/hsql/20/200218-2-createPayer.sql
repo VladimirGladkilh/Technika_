@@ -1,0 +1,1 @@
+create unique index IDX_TECHNIKA_PAYER_UNIQ_NAME on TECHNIKA_PAYER (NAME) ;

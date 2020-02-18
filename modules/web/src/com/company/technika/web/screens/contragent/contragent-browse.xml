@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         caption="msg://browseCaption"
-        focusComponent="devicesTable"
-        messagesPack="com.company.technika.web.screens.device">
+        focusComponent="contragentsTable"
+        messagesPack="com.company.technika.web.screens.contragent">
     <data>
-        <collection id="devicesDc"
-                    class="com.company.technika.entity.Device"
-                    view="device-view">
-            <loader id="devicesDl">
+        <collection id="contragentsDc"
+                    class="com.company.technika.entity.Contragent"
+                    view="_local">
+            <loader id="contragentsDl">
                 <query>
-                    <![CDATA[select e from technika_Device e]]>
+                    <![CDATA[select e from technika_Contragent e]]>
                 </query>
             </loader>
         </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="devicesTable"
+    <layout expand="contragentsTable"
             spacing="true">
         <filter id="filter"
-                applyTo="devicesTable"
-                dataLoader="devicesDl">
+                applyTo="contragentsTable"
+                dataLoader="contragentsDl">
             <properties include=".*"/>
         </filter>
-        <dataGrid id="devicesTable"
+        <dataGrid id="contragentsTable"
                   width="100%"
-                  dataContainer="devicesDc" editorEnabled="true">
+                  dataContainer="contragentsDc" editorEnabled="true">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
@@ -33,17 +33,17 @@
                 <action id="excel" type="excel"/>
             </actions>
             <columns>
-                <column property="type"/>
-                <column property="vendor"/>
-                <column property="model"/>
+                <column property="name"/>
+                <column property="contact"/>
+                <column property="phone"/>
                 <column property="prim"/>
             </columns>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="devicesTable.create"/>
-                <button id="editBtn" action="devicesTable.edit"/>
-                <button id="removeBtn" action="devicesTable.remove"/>
-                <button id="excelBtn" action="devicesTable.excel"/>
+                <button id="createBtn" action="contragentsTable.create"/>
+                <button id="editBtn" action="contragentsTable.edit"/>
+                <button id="removeBtn" action="contragentsTable.remove"/>
+                <button id="excelBtn" action="contragentsTable.excel"/>
             </buttonsPanel>
         </dataGrid>
         <hbox id="lookupActions" spacing="true" visible="false">

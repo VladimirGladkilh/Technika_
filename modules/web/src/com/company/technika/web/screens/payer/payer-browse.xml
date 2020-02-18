@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         caption="msg://browseCaption"
-        focusComponent="devicesTable"
-        messagesPack="com.company.technika.web.screens.device">
+        focusComponent="payersTable"
+        messagesPack="com.company.technika.web.screens.payer">
     <data>
-        <collection id="devicesDc"
-                    class="com.company.technika.entity.Device"
-                    view="device-view">
-            <loader id="devicesDl">
+        <collection id="payersDc"
+                    class="com.company.technika.entity.Payer"
+                    view="_local">
+            <loader id="payersDl">
                 <query>
-                    <![CDATA[select e from technika_Device e]]>
+                    <![CDATA[select e from technika_Payer e]]>
                 </query>
             </loader>
         </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="devicesTable"
+    <layout expand="payersTable"
             spacing="true">
         <filter id="filter"
-                applyTo="devicesTable"
-                dataLoader="devicesDl">
+                applyTo="payersTable"
+                dataLoader="payersDl">
             <properties include=".*"/>
         </filter>
-        <dataGrid id="devicesTable"
+        <dataGrid id="payersTable"
                   width="100%"
-                  dataContainer="devicesDc" editorEnabled="true">
+                  dataContainer="payersDc" editorEnabled="true">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
@@ -33,17 +33,15 @@
                 <action id="excel" type="excel"/>
             </actions>
             <columns>
-                <column property="type"/>
-                <column property="vendor"/>
-                <column property="model"/>
+                <column property="name"/>
                 <column property="prim"/>
             </columns>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="devicesTable.create"/>
-                <button id="editBtn" action="devicesTable.edit"/>
-                <button id="removeBtn" action="devicesTable.remove"/>
-                <button id="excelBtn" action="devicesTable.excel"/>
+                <button id="createBtn" action="payersTable.create"/>
+                <button id="editBtn" action="payersTable.edit"/>
+                <button id="removeBtn" action="payersTable.remove"/>
+                <button id="excelBtn" action="payersTable.excel"/>
             </buttonsPanel>
         </dataGrid>
         <hbox id="lookupActions" spacing="true" visible="false">

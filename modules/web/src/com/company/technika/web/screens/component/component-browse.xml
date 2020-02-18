@@ -37,8 +37,8 @@
                 <column property="serialNumber"/>
                 <column property="price"/>
                 <column property="lowPrice"/>
-                <column property="busy"/>
                 <column property="cost"/>
+                <column property="busy" editable="false"/>
             </columns>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
