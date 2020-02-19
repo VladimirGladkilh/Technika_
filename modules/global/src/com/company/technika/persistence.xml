@@ -12,5 +12,7 @@
         <class>com.company.technika.entity.Contragent</class>
         <class>com.company.technika.entity.Cost</class>
         <class>com.company.technika.entity.Person</class>
+        <class>com.company.technika.entity.Technika</class>
+        <class>com.company.technika.entity.Equipment</class>
     </persistence-unit>
 </persistence>

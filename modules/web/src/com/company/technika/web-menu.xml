@@ -11,5 +11,6 @@
         <item screen="technika_Contragent.browse"/>
         <item screen="technika_Cost.browse"/>
         <item screen="technika_Person.browse"/>
+        <item screen="technika_Techika.browse"/>
     </menu>
 </menu-config>

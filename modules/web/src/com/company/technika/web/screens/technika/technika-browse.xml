@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://browseCaption"
+        focusComponent="technikasTable"
+        messagesPack="com.company.technika.web.screens.technika">
+    <data readOnly="true">
+        <collection id="technikasDc"
+                    class="com.company.technika.entity.Technika"
+                    view="_local">
+            <loader id="technikasDl">
+                <query>
+                    <![CDATA[select e from technika_Techika e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="technikasTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="technikasTable"
+                dataLoader="technikasDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="technikasTable"
+                    width="100%"
+                    dataContainer="technikasDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="prim"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="technikasTable.create"/>
+                <button id="editBtn" action="technikasTable.edit"/>
+                <button id="removeBtn" action="technikasTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.technika.web.screens.technika">
+    <data>
+        <instance id="technikaDc"
+                  class="com.company.technika.entity.Technika"
+                  view="technika-edit">
+            <loader/>
+            <collection id="equipmentDc" property="equipment"/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="technikaDc">
+            <column width="250px">
+                <textField id="nameField" property="name" />
+                <textArea id="primField" property="prim" />
+            </column>
+        </form>
+        <!--groupBox id="equipmentBox" caption="msg://com.company.technika.entity/Technika.equipment">
+            <table id="equipmentTable" dataContainer="equipmentDc" width="100%" height="200px">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="component"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="equipmentTable.create"/>
+                    <button action="equipmentTable.edit"/>
+                    <button action="equipmentTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox-->
+        <groupBox id="gridBox" caption="msg://com.company.technika.entity/Technika.equipment">
+            <dataGrid id="dataGrid"  width="100%" height="300px" dataContainer="equipmentDc" editorEnabled="true" >
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="component" property="component"  />
+                    <column id="prim" property="prim" />
+                </columns>
+                <buttonsPanel>
+                    <button action="dataGrid.create"/>
+                    <button action="dataGrid.edit"/>
+                    <button action="dataGrid.remove"/>
+                </buttonsPanel>
+            </dataGrid>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

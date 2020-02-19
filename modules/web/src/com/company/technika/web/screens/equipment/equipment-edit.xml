@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.technika.web.screens.equipment">
+    <data>
+        <instance id="equipmentDc"
+                  class="com.company.technika.entity.Equipment"
+                  view="equipment-view">
+            <loader/>
+        </instance>
+        <collection id="technikasDc" class="com.company.technika.entity.Technika" view="_minimal">
+            <loader id="technikasLc">
+                <query>
+                    <![CDATA[select e from technika_Techika e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="componentsDc" class="com.company.technika.entity.Component" view="_minimal">
+            <loader id="componentsLc">
+                <query>
+                    <![CDATA[select e from technika_Component e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="equipmentDc">
+            <column width="250px">
+                <lookupPickerField id="technikaField" optionsContainer="technikasDc" property="technika">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                    </actions>
+                </lookupPickerField>
+                <lookupPickerField id="componentField" optionsContainer="componentsDc" property="component">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                    </actions>
+                </lookupPickerField>
+                <textField id="primField" property="prim"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

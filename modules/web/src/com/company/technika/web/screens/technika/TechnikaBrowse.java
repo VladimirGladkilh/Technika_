@@ -1,0 +1,11 @@
+package com.company.technika.web.screens.technika;
+
+import com.haulmont.cuba.gui.screen.*;
+import com.company.technika.entity.Technika;
+
+@UiController("technika_Techika.browse")
+@UiDescriptor("technika-browse.xml")
+@LookupComponent("technikasTable")
+@LoadDataBeforeShow
+public class TechnikaBrowse extends StandardLookup<Technika> {
+}
