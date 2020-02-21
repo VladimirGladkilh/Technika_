@@ -31,6 +31,19 @@ public class Technika extends StandardEntity {
     @OneToMany(mappedBy = "technika")
     protected List<Equipment> equipment;
 
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToMany(mappedBy = "technika")
+    protected List<Movement> movement;
+
+    public List<Movement> getMovement() {
+        return movement;
+    }
+
+    public void setMovement(List<Movement> movement) {
+        this.movement = movement;
+    }
+
     public List<Equipment> getEquipment() {
         return equipment;
     }

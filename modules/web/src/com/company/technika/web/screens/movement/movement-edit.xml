@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.technika.web.screens.movement">
+    <data>
+        <instance id="movementDc"
+                  class="com.company.technika.entity.Movement"
+                  view="movement-view">
+            <loader/>
+        </instance>
+        <collection id="technikasDc" class="com.company.technika.entity.Technika" view="_minimal">
+            <loader id="technikasLc">
+                <query>
+                    <![CDATA[select e from technika_Techika e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="personsDc" class="com.company.technika.entity.Person" view="_minimal">
+            <loader id="personssLc">
+                <query>
+                    <![CDATA[select e from technika_Person e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="movementDc">
+            <column width="250px">
+                <lookupPickerField id="technikaField" optionsContainer="technikasDc" property="technika">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                    </actions>
+                </lookupPickerField>
+                <lookupPickerField id="personField" optionsContainer="personsDc" property="person">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                    </actions>
+                </lookupPickerField>
+                <dateField id="startDateField" property="startDate"/>
+                <dateField id="endDateField" property="endDate"/>
+                <textArea id="primField" property="prim"/>
+
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

@@ -15,7 +15,7 @@ buildscript {
     }
 }
 
-def modulePrefix = 'app'
+def modulePrefix = 'technika'
 
 def globalModule = project(":${modulePrefix}-global")
 def coreModule = project(":${modulePrefix}-core")

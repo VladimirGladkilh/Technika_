@@ -14,5 +14,6 @@
         <class>com.company.technika.entity.Person</class>
         <class>com.company.technika.entity.Technika</class>
         <class>com.company.technika.entity.Equipment</class>
+        <class>com.company.technika.entity.Movement</class>
     </persistence-unit>
 </persistence>

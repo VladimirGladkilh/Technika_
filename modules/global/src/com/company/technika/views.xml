@@ -30,5 +30,13 @@
     </view>
     <view entity="technika_Techika" name="technika-edit" extends="_local">
         <property name="equipment" view="equipment-view_fortech"/>
+        <property name="movement" view="movement-view_fortech"/>
+    </view>
+    <view entity="technika_Movement" name="movement-view_fortech" extends="_local">
+        <property name="person" view="_minimal"/>
+    </view>
+    <view entity="technika_Movement" name="movement-view" extends="_local">
+        <property name="person" view="_minimal"/>
+        <property name="technika" view="_minimal"/>
     </view>
 </views>
