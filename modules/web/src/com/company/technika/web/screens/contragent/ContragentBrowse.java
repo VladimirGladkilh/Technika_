@@ -1,15 +1,26 @@
 package com.company.technika.web.screens.contragent;
 
+import com.company.technika.service.EntityImportService;
+import com.haulmont.cuba.core.entity.FileDescriptor;
+import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.cuba.core.global.FileLoader;
+import com.haulmont.cuba.core.global.FileStorageException;
 import com.haulmont.cuba.core.global.RemoteException;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Action;
 import com.haulmont.cuba.gui.components.DataGrid;
+import com.haulmont.cuba.gui.components.FileUploadField;
 import com.haulmont.cuba.gui.model.CollectionContainer;
+import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.model.DataContext;
 import com.haulmont.cuba.gui.screen.*;
 import com.company.technika.entity.Contragent;
+import com.haulmont.cuba.gui.upload.FileUploadingAPI;
 
 import javax.inject.Inject;
+import java.io.*;
+import java.util.UUID;
+import java.util.function.Supplier;
 
 @UiController("technika_Contragent.browse")
 @UiDescriptor("contragent-browse.xml")
@@ -50,42 +61,68 @@ public class ContragentBrowse extends StandardLookup<Contragent> {
     public void onContragentsTableEditorClose(DataGrid.EditorCloseEvent event) {
         Contragent selected = contragentsTable.getEditedItem();
         if (selected == null) {
-            dataContext.remove(currentEntity);
+            if (currentEntity != null) {
+                dataContext.remove(currentEntity);
+            }
         }
         getScreenData().loadAll();
     }
 
     @Subscribe("contragentsTable")
     public void onContragentsTableEditorPostCommit(DataGrid.EditorPostCommitEvent event) {
-        String message = "";
-        String val = "Скорректируйте значение "+ contragentsTable.getEditedItem().getName();
+        getScreenData().getDataContext().commit();
+    }
+
+    @Inject
+    private DataManager dataManager;
+    @Inject
+    private CollectionLoader<Contragent> contragentsDl;
+    @Inject
+    private EntityImportService entityImportService;
+    @Inject
+    private FileLoader fileLoader;
+    @Inject
+    private FileUploadingAPI fileUploadingAPI;
+    @Inject
+    private FileUploadField upload;
+
+    @Subscribe("upload")
+    public void onUploadFileUploadSucceed(FileUploadField.FileUploadSucceedEvent event) {
+        UUID fileUUID = upload.getFileId();
+        String fileName = upload.getFileName();
+        FileDescriptor fileDescriptor = fileUploadingAPI.getFileDescriptor(fileUUID, fileName);
+        File file = fileUploadingAPI.getFile(fileUUID);
+        Supplier<InputStream> inputStreamSupplier = () -> {
+            try {
+                return new FileInputStream(file);
+            } catch (FileNotFoundException e) {
+                throw new FileLoader.InputStreamSupplierException("File is not found " + file.getAbsolutePath());
+            }
+        };
         try {
-            getScreenData().getDataContext().commit();
+            fileLoader.saveStream(fileDescriptor, inputStreamSupplier);
         }
-        catch (javax.persistence.EntityExistsException ex){
-            message = "Сущность уже существует. " + ex.getLocalizedMessage();
+        catch (FileStorageException e) {
+            throw new RuntimeException(e);
         }
-        catch (javax.persistence.NonUniqueResultException ex){
-            message = "Значение уже существует. " +ex.getLocalizedMessage();
+        dataManager.commit(fileDescriptor);
+        try {
+            String importResult = entityImportService.entityImportFromFile(fileDescriptor, "Contragent");
+            notifications.create(Notifications.NotificationType.TRAY)
+                    .withCaption("Результат импорта")
+                    .withDescription(importResult)
+                    .show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (javax.persistence.TransactionRequiredException ex){
-            message = "Ошибка транзакции. " +ex.getLocalizedMessage();
-        }
-        catch (javax.persistence.RollbackException ex){
-            message = "Ошибка отката. " +ex.getLocalizedMessage();
-        }
-        catch (RemoteException ex){
-            message = "Ошибка внутри сервера. " +ex.getLocalizedMessage();
-        }
-        catch (Exception ex){
-            message = "Видимо что то случилось. " +ex.getLocalizedMessage();
-        }
-        if (!message.equals("")){
-            notifications.create(Notifications.NotificationType.ERROR)
-                    .withCaption("Ошибка сохранения")
-                    .withDescription(message + '\n'+ val)
+        String error = entityImportService.entityErrorMessage();
+        if (!error.equals("")){
+            notifications.create(Notifications.NotificationType.WARNING)
+                    .withCaption("Ошибка импорта")
+                    .withDescription(error)
                     .show();
         }
+        contragentsDl.load();
     }
     
     

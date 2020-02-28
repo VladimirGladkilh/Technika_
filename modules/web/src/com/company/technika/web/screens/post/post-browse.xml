@@ -39,7 +39,10 @@
                 <button id="createBtn" action="postsTable.create"/>
                 <button id="editBtn" action="postsTable.edit"/>
                 <button id="removeBtn" action="postsTable.remove"/>
+                <upload id="upload" fileSizeLimit="0"/>
+                <button id="my"/>
             </buttonsPanel>
+            <rowsCount/>
         </dataGrid>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>

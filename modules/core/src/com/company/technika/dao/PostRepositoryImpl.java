@@ -4,14 +4,18 @@ import com.company.technika.entity.Post;
 import com.haulmont.cuba.core.EntityManager;
 import com.haulmont.cuba.core.Persistence;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+@Repository //
 public class PostRepositoryImpl implements PostRepository {
     private final Persistence persistence;
+
     @Autowired
-    public PostRepositoryImpl(Persistence persistence) {
+    public PostRepositoryImpl(Persistence persistence){
         this.persistence = persistence;
     }
+
 
     @Override
     @Transactional
@@ -19,4 +23,4 @@ public class PostRepositoryImpl implements PostRepository {
         EntityManager entityManager = persistence.getEntityManager();
         entityManager.persist(post);
     }
-}
+}//

@@ -37,7 +37,7 @@
                 <column property="serialNumber"/>
                 <column property="price"/>
                 <column property="lowPrice"/>
-                <column property="cost"/>
+                <column property="costName"/>
                 <column property="busy" editable="false"/>
             </columns>
             <buttonsPanel id="buttonsPanel"
@@ -47,6 +47,7 @@
                 <button id="removeBtn" action="componentsTable.remove"/>
                 <button id="excelBtn" action="componentsTable.excel"/>
             </buttonsPanel>
+            <rowsCount/>
         </dataGrid>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>

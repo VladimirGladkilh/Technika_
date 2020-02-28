@@ -27,12 +27,12 @@ public class Technika extends StandardEntity {
     protected String prim;
 
     @Composition
-    @OnDelete(DeletePolicy.CASCADE)
+    @OnDelete(DeletePolicy.UNLINK)
     @OneToMany(mappedBy = "technika")
     protected List<Equipment> equipment;
 
     @Composition
-    @OnDelete(DeletePolicy.CASCADE)
+    @OnDelete(DeletePolicy.UNLINK)
     @OneToMany(mappedBy = "technika")
     protected List<Movement> movement;
 

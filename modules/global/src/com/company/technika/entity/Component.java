@@ -4,6 +4,8 @@ import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.Lookup;
 import com.haulmont.cuba.core.entity.annotation.LookupType;
+import com.haulmont.cuba.core.entity.annotation.OnDelete;
+import com.haulmont.cuba.core.global.DeletePolicy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -33,16 +35,18 @@ public class Component extends StandardEntity {
     @Column(name = "BUSY")
     protected Boolean busy;
 
+    @OnDelete(DeletePolicy.UNLINK)
+    @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COST_ID")
-    protected Cost cost;
+    @JoinColumn(name = "COSTNAME_ID")
+    protected Cost costName;
 
-    public void setCost(Cost cost) {
-        this.cost = cost;
+    public void setCostName(Cost costName) {
+        this.costName = costName;
     }
 
-    public Cost getCost() {
-        return cost;
+    public Cost getCostName() {
+        return costName;
     }
 
     public Boolean getBusy() {

@@ -8,9 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-@NamePattern("%s|name")
 @Table(name = "TECHNIKA_POST")
 @Entity(name = "technika_Post")
+@NamePattern("%s|name")
 public class Post extends StandardEntity {
     private static final long serialVersionUID = -5542538873546700458L;
 

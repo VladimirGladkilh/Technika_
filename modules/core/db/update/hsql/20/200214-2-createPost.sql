@@ -1,1 +1,0 @@
-create unique index IDX_TECHNIKA_POST_UNIQ_NAME on TECHNIKA_POST (NAME) ;

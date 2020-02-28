@@ -14,13 +14,13 @@ public class Movement extends StandardEntity {
     private static final long serialVersionUID = 8942724609536089529L;
 
     @NotNull
-    @OnDelete(DeletePolicy.CASCADE)
+    @OnDelete(DeletePolicy.UNLINK)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "PERSON_ID")
     protected Person person;
 
     @NotNull
-    @OnDelete(DeletePolicy.CASCADE)
+    @OnDelete(DeletePolicy.UNLINK)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "TECHNIKA_ID")
     protected Technika technika;

@@ -34,13 +34,13 @@ public class Person extends StandardEntity {
     protected String phone;
 
     @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
-    @OnDelete(DeletePolicy.CASCADE)
+    @OnDelete(DeletePolicy.UNLINK)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OFFICE_ID")
     protected Office office;
 
     @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
-    @OnDelete(DeletePolicy.CASCADE)
+    @OnDelete(DeletePolicy.UNLINK)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POST_ID")
     protected Post post;

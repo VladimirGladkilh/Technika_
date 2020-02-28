@@ -4,23 +4,32 @@
 
     <!-- Switch off session serialization -->
     <Manager pathname=""/>
+    <!--<Resource driverClassName="org.hsqldb.jdbc.JDBCDriver"
+          maxIdle="2"
+          maxTotal="20"
+          maxWaitMillis="5000"
+          name="jdbc/CubaDS"
+          password=""
+          type="javax.sql.DataSource"
+          url="jdbc:hsqldb:hsql://localhost:9010/technika-vdLDYiRPt"
+          username="sa"/>-->
     <!--<Resource driverClassName="org.postgresql.Driver"
           maxIdle="2"
           maxTotal="20"
           maxWaitMillis="5000"
           name="jdbc/CubaDS"
-          password="cuba"
+          password="1Qwerty"
           type="javax.sql.DataSource"
-          url="jdbc:postgresql://astra/technika"
-          username="cuba"/>-->
-    <Resource driverClassName="org.hsqldb.jdbc.JDBCDriver"
+          url="jdbc:postgresql://127.0.0.1:50048/technika"
+          username="postgres"/>-->
+    <Resource driverClassName="org.postgresql.Driver"
               maxIdle="2"
               maxTotal="20"
               maxWaitMillis="5000"
               name="jdbc/CubaDS"
-              password=""
+              password="1Qwerty"
               type="javax.sql.DataSource"
-              url="jdbc:hsqldb:hsql://localhost:9010/technika-vdLDYiRPt"
-              username="sa"/>
+              url="jdbc:postgresql://127.0.0.1/technika"
+              username="postgres"/>
 
 </Context>

@@ -18,11 +18,12 @@ public class Equipment extends StandardEntity {
 
     @NotNull
     @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
-    @OnDelete(DeletePolicy.CASCADE)
+    @OnDelete(DeletePolicy.UNLINK)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "TECHNIKA_ID")
     protected Technika technika;
 
+    @OnDelete(DeletePolicy.UNLINK)
     @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

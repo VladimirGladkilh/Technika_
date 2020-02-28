@@ -45,6 +45,7 @@
                 <button id="removeBtn" action="devicesTable.remove"/>
                 <button id="excelBtn" action="devicesTable.excel"/>
             </buttonsPanel>
+            <rowsCount/>
         </dataGrid>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>

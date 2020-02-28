@@ -41,7 +41,9 @@
                 <button id="editBtn" action="vendorsTable.edit"/>
                 <button id="removeBtn" action="vendorsTable.remove"/>
                 <button id="excelBtn" action="vendorsTable.excel"/>
+                <upload id="upload"/>
             </buttonsPanel>
+            <rowsCount/>
         </dataGrid>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>

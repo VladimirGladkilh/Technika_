@@ -59,35 +59,7 @@ public class TechnikaEdit extends StandardEditor<Technika> {
 
     @Subscribe("dataGrid")
     public void onDataGridEditorPostCommit(DataGrid.EditorPostCommitEvent event) {
-        String message = "";
-        String val = "Скорректируйте значение "+ dataGrid.getEditedItem().getComponent().toString();
-        try {
-            getScreenData().getDataContext().commit();
-        }
-        catch (javax.persistence.EntityExistsException ex){
-            message = "Сущность уже существует. " + ex.getLocalizedMessage();
-        }
-        catch (javax.persistence.NonUniqueResultException ex){
-            message = "Значение уже существует. " +ex.getLocalizedMessage();
-        }
-        catch (javax.persistence.TransactionRequiredException ex){
-            message = "Ошибка транзакции. " +ex.getLocalizedMessage();
-        }
-        catch (javax.persistence.RollbackException ex){
-            message = "Ошибка отката. " +ex.getLocalizedMessage();
-        }
-        catch (RemoteException ex){
-            message = "Ошибка внутри сервера. " +ex.getLocalizedMessage();
-        }
-        catch (Exception ex){
-            message = "Видимо что то случилось. " +ex.getLocalizedMessage();
-        }
-        if (!message.equals("")){
-            notifications.create(Notifications.NotificationType.ERROR)
-                    .withCaption("Ошибка сохранения")
-                    .withDescription(message + '\n'+ val)
-                    .show();
-        }
+        getScreenData().getDataContext().commit();
     }
 
 

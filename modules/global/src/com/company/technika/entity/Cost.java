@@ -27,7 +27,7 @@ public class Cost extends StandardEntity {
     @Column(name = "DAT", nullable = false)
     protected Date dat;
 
-    @OnDelete(DeletePolicy.CASCADE)
+    @OnDelete(DeletePolicy.UNLINK)
     @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -52,7 +52,7 @@ public class Cost extends StandardEntity {
     protected FileDescriptor upd;
 
     @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
-    @OnDelete(DeletePolicy.CASCADE)
+    @OnDelete(DeletePolicy.UNLINK)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PAYER_ID")
     protected Payer payer;

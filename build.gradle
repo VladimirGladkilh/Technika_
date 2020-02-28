@@ -40,7 +40,7 @@ dependencies {
     appComponent("com.haulmont.cuba:cuba-global:$cubaVersion")
 }
 
-def hsql = 'org.hsqldb:hsqldb:2.4.1'
+def postgres = 'org.postgresql:postgresql:42.2.5'
 
 configure([globalModule, coreModule, webModule]) {
     apply(plugin: 'java')
@@ -67,6 +67,11 @@ configure(globalModule) {
             runtime('javax.xml.bind:jaxb-api:2.3.1')
             runtime('org.glassfish.jaxb:jaxb-runtime:2.3.1')
         }
+        compile "org.apache.poi:ooxml-schemas:1.4"
+        compile('org.apache.tika:tika-parsers:1.22')
+        compile('org.odftoolkit:odfdom-java:0.8.7')
+        compile('org.jodconverter:jodconverter-local:4.2.2')
+
     }
 
     entitiesEnhancing {
@@ -86,8 +91,8 @@ configure(coreModule) {
     dependencies {
         compile(globalModule)
         compileOnly(servletApi)
-        jdbc(hsql)
-        testRuntime(hsql)
+        jdbc(postgres)
+        testRuntime(postgres)
     }
 
     task cleanConf(description: 'Cleans up conf directory') {
@@ -107,19 +112,19 @@ configure(coreModule) {
     }
 
     task createDb(dependsOn: assembleDbScripts, description: 'Creates local database', type: CubaDbCreation) {
-        dbms = 'hsql'
-        host = 'localhost:9010'
-        dbName = 'technika-vdLDYiRPt'
-        dbUser = 'sa'
-        dbPassword = ''
+        dbms = 'postgres'
+        host = '127.0.0.1'
+        dbName = 'technika'
+        dbUser = 'postgres'
+        dbPassword = '1Qwerty'
     }
 
     task updateDb(dependsOn: assembleDbScripts, description: 'Updates local database', type: CubaDbUpdate) {
-        dbms = 'hsql'
-        host = 'localhost:9010'
-        dbName = 'technika-vdLDYiRPt'
-        dbUser = 'sa'
-        dbPassword = ''
+        dbms = 'postgres'
+        host = '127.0.0.1'
+        dbName = 'technika'
+        dbUser = 'postgres'
+        dbPassword = '1Qwerty'
     }
 }
 

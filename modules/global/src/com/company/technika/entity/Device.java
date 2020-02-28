@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public class Device extends StandardEntity {
     private static final long serialVersionUID = -1611915218397165572L;
 
-    @OnDelete(DeletePolicy.CASCADE)
+    @OnDelete(DeletePolicy.UNLINK)
     @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -25,13 +25,13 @@ public class Device extends StandardEntity {
 
     @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
     @NotNull
-    @OnDelete(DeletePolicy.CASCADE)
+    @OnDelete(DeletePolicy.UNLINK)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "VENDOR_ID")
     protected Vendor vendor;
 
     @NotNull
-    @Column(name = "MODEL", nullable = false, unique = true)
+    @Column(name = "MODEL", nullable = false)
     protected String model;
 
     @Column(name = "PRIM", length = 512)

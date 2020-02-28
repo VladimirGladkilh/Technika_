@@ -1,15 +1,29 @@
 package com.company.technika.web.screens.person;
 
-import com.haulmont.cuba.core.global.RemoteException;
+import com.company.technika.entity.Post;
+import com.company.technika.service.EntityImportService;
+import com.haulmont.cuba.core.entity.FileDescriptor;
+import com.haulmont.cuba.core.global.*;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Action;
+import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.components.DataGrid;
+import com.haulmont.cuba.gui.components.FileUploadField;
 import com.haulmont.cuba.gui.model.CollectionContainer;
+import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.model.DataContext;
 import com.haulmont.cuba.gui.screen.*;
 import com.company.technika.entity.Person;
+import com.haulmont.cuba.gui.upload.FileUploadingAPI;
 
 import javax.inject.Inject;
+import javax.persistence.EntityExistsException;
+import javax.persistence.NonUniqueResultException;
+import javax.persistence.RollbackException;
+import javax.persistence.TransactionRequiredException;
+import java.io.*;
+import java.util.UUID;
+import java.util.function.Supplier;
 
 @UiController("technika_Person.browse")
 @UiDescriptor("person-browse.xml")
@@ -50,43 +64,67 @@ public class PersonBrowse extends StandardLookup<Person> {
     public void onPersonsTableEditorClose(DataGrid.EditorCloseEvent event) {
         Person selected = personsTable.getEditedItem();
         if (selected == null) {
-            dataContext.remove(currentEntity);
+            if (currentEntity != null) {
+                dataContext.remove(currentEntity);
+            }
         }
         getScreenData().loadAll();
     }
 
     @Subscribe("personsTable")
     public void onPersonsTableEditorPostCommit(DataGrid.EditorPostCommitEvent event) {
-        String message = "";
-        String val = "Скорректируйте значение "+ personsTable.getEditedItem().getFamilia()+" " + personsTable.getEditedItem().getImya();
-        try {
             getScreenData().getDataContext().commit();
+    }
+
+    @Inject
+    private EntityImportService entityImportService;
+    @Inject
+    private FileUploadingAPI fileUploadingAPI;
+    @Inject
+    private FileLoader fileLoader;
+    @Inject
+    private CollectionLoader<Person> personsDl;
+    @Inject
+    private FileUploadField upload;
+    @Inject
+    private DataManager dataManager;
+
+    @Subscribe("upload")
+    public void onUploadFileUploadSucceed(FileUploadField.FileUploadSucceedEvent event) {
+        UUID fileUUID = upload.getFileId();
+        String fileName = upload.getFileName();
+        FileDescriptor fileDescriptor = fileUploadingAPI.getFileDescriptor(fileUUID, fileName);
+        File file = fileUploadingAPI.getFile(fileUUID);
+        Supplier<InputStream> inputStreamSupplier = () -> {
+            try {
+                return new FileInputStream(file);
+            } catch (FileNotFoundException e) {
+                throw new FileLoader.InputStreamSupplierException("File is not found " + file.getAbsolutePath());
+            }
+        };
+        try {
+            fileLoader.saveStream(fileDescriptor, inputStreamSupplier);
         }
-        catch (javax.persistence.EntityExistsException ex){
-            message = "Сущность уже существует. " + ex.getLocalizedMessage();
+        catch (FileStorageException e) {
+            throw new RuntimeException(e);
         }
-        catch (javax.persistence.NonUniqueResultException ex){
-            message = "Значение уже существует. " +ex.getLocalizedMessage();
+        dataManager.commit(fileDescriptor);
+        try {
+            String importResult = entityImportService.entityImportFromFile(fileDescriptor, "Person");
+            notifications.create(Notifications.NotificationType.TRAY)
+                    .withCaption("Результат импорта")
+                    .withDescription(importResult)
+                    .show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (javax.persistence.TransactionRequiredException ex){
-            message = "Ошибка транзакции. " +ex.getLocalizedMessage();
-        }
-        catch (javax.persistence.RollbackException ex){
-            message = "Ошибка отката. " +ex.getLocalizedMessage();
-        }
-        catch (RemoteException ex){
-            message = "Ошибка внутри сервера. " +ex.getLocalizedMessage();
-        }
-        catch (Exception ex){
-            message = "Видимо что то случилось. " +ex.getLocalizedMessage();
-        }
-        if (!message.equals("")){
-            notifications.create(Notifications.NotificationType.ERROR)
-                    .withCaption("Ошибка сохранения")
-                    .withDescription(message + '\n'+ val)
+        String error = entityImportService.entityErrorMessage();
+        if (!error.equals("")){
+            notifications.create(Notifications.NotificationType.WARNING)
+                    .withCaption("Ошибка импорта")
+                    .withDescription(error)
                     .show();
         }
+        personsDl.load();
     }
-    
-    
 }

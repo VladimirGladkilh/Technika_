@@ -3,9 +3,7 @@ package com.company.technika.entity;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @NamePattern("%s|name")
@@ -68,5 +66,20 @@ public class Office extends StandardEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void updateOfficeName() {
+        if (street.equals("")){
+            name = city;
+        } else {
+            name = createOfficeName(city, street, house);
+        }
+    }
+
+
+    private static String createOfficeName(String city, String street, String house){
+        return  String.format("%s. %s %s", city, street, house).trim();
     }
 }
