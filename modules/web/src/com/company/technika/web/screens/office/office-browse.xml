@@ -25,7 +25,7 @@
         </filter>
         <dataGrid id="officesTable"
                   width="100%"
-                  dataContainer="officesDc" editorEnabled="true">
+                  dataContainer="officesDc" editorEnabled="true" selectionMode="MULTI_CHECK">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>

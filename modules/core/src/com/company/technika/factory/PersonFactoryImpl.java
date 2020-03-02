@@ -103,7 +103,6 @@ public class PersonFactoryImpl implements PersonFactory {
                 .setQuery(LoadContext.createQuery(postQuery)
                 .setParameter("name", postName.toLowerCase())
                         .setMaxResults(1));
-        //Post post = dataManager.load(lcp);
         return dataManager.load(lcp);
     }
     private Office getOfficeByName(String officeName){
@@ -112,7 +111,6 @@ public class PersonFactoryImpl implements PersonFactory {
                 .setQuery(LoadContext.createQuery(officeQuery)
                         .setParameter("name", officeName.toLowerCase())
                         .setMaxResults(1));
-        //Office office = dataManager.load(lcp);
         return dataManager.load(lcp);
     }
 }

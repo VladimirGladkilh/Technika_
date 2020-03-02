@@ -25,7 +25,7 @@
         </filter>
         <dataGrid id="componentsTable"
                   width="100%"
-                  dataContainer="componentsDc" editorEnabled="true">
+                  dataContainer="componentsDc" editorEnabled="true" selectionMode="MULTI">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
@@ -38,6 +38,7 @@
                 <column property="price"/>
                 <column property="lowPrice"/>
                 <column property="costName"/>
+                <column property="prim"/>
                 <column property="busy" editable="false"/>
             </columns>
             <buttonsPanel id="buttonsPanel"
@@ -46,6 +47,7 @@
                 <button id="editBtn" action="componentsTable.edit"/>
                 <button id="removeBtn" action="componentsTable.remove"/>
                 <button id="excelBtn" action="componentsTable.excel"/>
+                <upload id="upload"/>
             </buttonsPanel>
             <rowsCount/>
         </dataGrid>

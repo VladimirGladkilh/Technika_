@@ -4,8 +4,6 @@ import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.Lookup;
 import com.haulmont.cuba.core.entity.annotation.LookupType;
-import com.haulmont.cuba.core.entity.annotation.OnDelete;
-import com.haulmont.cuba.core.global.DeletePolicy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,16 +14,14 @@ import javax.validation.constraints.NotNull;
 public class Device extends StandardEntity {
     private static final long serialVersionUID = -1611915218397165572L;
 
-    @OnDelete(DeletePolicy.UNLINK)
-    @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
+    @Lookup(type = LookupType.DROPDOWN, actions = "lookup")
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "TYPE_ID")
     protected DeviceType type;
 
-    @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
+    @Lookup(type = LookupType.DROPDOWN, actions = "lookup")
     @NotNull
-    @OnDelete(DeletePolicy.UNLINK)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "VENDOR_ID")
     protected Vendor vendor;
@@ -36,6 +32,17 @@ public class Device extends StandardEntity {
 
     @Column(name = "PRIM", length = 512)
     protected String prim;
+
+    @Column(name = "NAME")
+    protected String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getPrim() {
         return prim;
@@ -68,4 +75,23 @@ public class Device extends StandardEntity {
     public void setModel(String model) {
         this.model = model;
     }
+
+    @PrePersist
+    @PreUpdate
+    public void updateName() {
+        StringBuilder actualName= new StringBuilder();
+        if (type != null){
+            actualName.append(type.getName());
+            actualName.append(" ");
+        }
+        if (vendor != null){
+            actualName.append(vendor.getName());
+            actualName.append(" ");
+        }
+        actualName.append(model);
+
+
+        name = actualName.toString().trim();
+    }
+
 }

@@ -20,4 +20,10 @@ public interface EntityImportService {
     String entityPayerFillFromArray(ArrayList<String[]> multiRow);
 
     String entityPersonFillFromArray(ArrayList<String[]> multiRow);
+
+    String entityDeviceFillFromArray(ArrayList<String[]> multiRow);
+
+    String entityCostFillFromArray(ArrayList<String[]> multiRow);
+
+    String entityComponentFillFromArray(ArrayList<String[]> multiRow);
 }

@@ -6,7 +6,9 @@ import com.company.technika.factory.*;
 import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.global.FileLoader;
 import com.haulmont.cuba.core.global.FileStorageException;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.format.CellDateFormatter;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import javax.inject.Inject;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service(EntityImportService.NAME)
 public class EntityImportServiceBean implements EntityImportService {
@@ -33,6 +36,12 @@ public class EntityImportServiceBean implements EntityImportService {
     private final PayerRepository payerRepository;
     private final PersonFactory personFactory;
     private final PersonRepository personRepository;
+    private final DeviceFactory deviceFactory;
+    private final DeviceRepository deviceRepository;
+    private final CostFactory costFactory;
+    private final CostRepository costRepository;
+    private final ComponentFactory componentFactory;
+    private final ComponentRepository componentRepository;
 
 
     private String errorValues = "";
@@ -48,7 +57,10 @@ public class EntityImportServiceBean implements EntityImportService {
                                    ContragentFactory contragentFactory, ContragentRepository contragentRepository,
                                    PostFactory postFactory, PostRepository postRepository,
                                    PayerFactory payerFactory, PayerRepository payerRepository,
-                                   PersonFactory personFactory, PersonRepository personRepository){
+                                   PersonFactory personFactory, PersonRepository personRepository,
+                                   DeviceFactory deviceFactory, DeviceRepository deviceRepository,
+                                   CostFactory costFactory, CostRepository costRepository,
+                                   ComponentFactory componentFactory, ComponentRepository componentRepository){
         this.contragentFactory = contragentFactory;
         this.contragentRepository = contragentRepository;
         this.vendorFactory = vendorFactory;
@@ -63,6 +75,12 @@ public class EntityImportServiceBean implements EntityImportService {
         this.payerRepository = payerRepository;
         this.personFactory = personFactory;
         this.personRepository = personRepository;
+        this.deviceFactory = deviceFactory;
+        this.deviceRepository = deviceRepository;
+        this.costFactory = costFactory;
+        this.costRepository = costRepository;
+        this.componentFactory = componentFactory;
+        this.componentRepository = componentRepository;
     }
 
     @Override
@@ -103,14 +121,28 @@ public class EntityImportServiceBean implements EntityImportService {
                             CellType cellType= row.getCell(k).getCellType();
                             String value ="";
                             switch (cellType){
+
                                 case STRING:
                                     value = row.getCell(k).getStringCellValue();
                                     break;
                                 case NUMERIC:
-                                    int num = (int)row.getCell(k).getNumericCellValue();
-                                    value = String.valueOf(num);
+                                    value = String.valueOf(row.getCell(k).getNumericCellValue());
+                                    if (HSSFDateUtil.isCellDateFormatted(row.getCell(k))){
+                                        Date date = row.getCell(k).getDateCellValue();
+                                        String dateFmt = row.getCell(k).getCellStyle().getDataFormatString();
+                                        try {
+                                            value = new CellDateFormatter("dd.MM.yyyy").format(date);
+                                        }catch (Exception e){
+                                            e.printStackTrace();
+                                           // value = row.getCell(k).getStringCellValue();
+                                        }
+
+                                    }
                                     break;
                             }
+
+
+
                             oneRow[k] = value;
                         }
                         else{
@@ -143,6 +175,15 @@ public class EntityImportServiceBean implements EntityImportService {
                         break;
                     case "Person":
                         res = entityPersonFillFromArray(multiRow);
+                        break;
+                    case "Device":
+                        res = entityDeviceFillFromArray(multiRow);
+                        break;
+                    case "Cost":
+                        res = entityCostFillFromArray(multiRow);
+                        break;
+                    case "Component":
+                        res = entityComponentFillFromArray(multiRow);
                         break;
                 }
             }
@@ -287,5 +328,65 @@ public class EntityImportServiceBean implements EntityImportService {
             }
         }
         return "Загружено "+ loadedRecords + " из "+ recordCount;
+    }
+
+    @Override
+    public String entityDeviceFillFromArray(ArrayList<String[]> multiRow){
+        recordCount = multiRow.size();
+        loadedRecords = 0;
+        for (String[] oneRecord : multiRow){
+            try {
+                //String name = oneRecord[1];
+                Device device = deviceFactory.create(oneRecord[1], oneRecord[2], oneRecord[3], oneRecord[4]);
+                deviceRepository.save(device);
+                loadedRecords = loadedRecords + 1;
+            }
+            catch (Exception ex){
+                ex.printStackTrace();
+                errorValues = String.format("%s%n%s", errorValues , ex.getLocalizedMessage());
+            }
+        }
+        return "Загружено "+ loadedRecords + " из "+ recordCount;
+    }
+    @Override
+    public String entityCostFillFromArray(ArrayList<String[]> multiRow){
+        recordCount = multiRow.size();
+        loadedRecords = 0;
+        for (String[] oneRecord : multiRow){
+            try {
+                //String name = oneRecord[1];
+                Cost cost = costFactory.create(oneRecord[1], oneRecord[2], oneRecord[3], oneRecord[4], oneRecord[5], oneRecord[6]);
+                costRepository.save(cost);
+                loadedRecords = loadedRecords + 1;
+            }
+            catch (Exception ex){
+                ex.printStackTrace();
+                String s=oneRecord[1] + oneRecord[2] + oneRecord[3] + oneRecord[4] + oneRecord[5] + oneRecord[6];
+                errorValues = String.format("%s%n%s", errorValues , s+'\n'+ex.getLocalizedMessage());
+            }
+        }
+        return "Загружено "+ loadedRecords + " из "+ recordCount;
+    }
+
+    @Override
+    public String entityComponentFillFromArray(ArrayList<String[]> multiRow){
+        recordCount = multiRow.size();
+        loadedRecords = 0;
+
+        for (String[] oneRecord : multiRow){
+            try {
+                //String name = oneRecord[1];
+                Component component = componentFactory.create(oneRecord[1], oneRecord[2], oneRecord[3], oneRecord[4], oneRecord[5], oneRecord[6]);
+                componentRepository.save(component);
+                loadedRecords = loadedRecords + 1;
+                //s =oneRecord[1] +"; "+ oneRecord[2] + "; "+oneRecord[3] +"; "+ oneRecord[4] +"; "+ oneRecord[5] +"; "+ oneRecord[6];
+            }
+            catch (Exception ex){
+                ex.printStackTrace();
+                //s =oneRecord[1] + oneRecord[2] + oneRecord[3] + oneRecord[4] + oneRecord[5] + oneRecord[6];
+                errorValues = String.format("%s%n%s", errorValues , ex.getLocalizedMessage());
+            }
+        }
+        return "Загружено "+ loadedRecords + " из "+ recordCount ;
     }
 }

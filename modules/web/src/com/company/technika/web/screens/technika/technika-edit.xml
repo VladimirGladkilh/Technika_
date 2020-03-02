@@ -22,43 +22,47 @@
             </column>
         </form>
         <tabSheet>
-            <tab id="tabEquipment" caption="Equipment">
-                <dataGrid id="dataGrid" width="100%" height="300px" dataContainer="equipmentDc" editorEnabled="true" >
-                    <actions>
-                        <action id="create" type="create"/>
-                        <action id="edit" type="edit"/>
-                        <action id="remove" type="remove"/>
-                    </actions>
-                    <columns>
-                        <column id="component" property="component"  />
-                        <column id="prim" property="prim" />
-                    </columns>
-                    <buttonsPanel>
-                        <button action="dataGrid.create"/>
-                        <button action="dataGrid.edit"/>
-                        <button action="dataGrid.remove"/>
-                    </buttonsPanel>
-                </dataGrid>
+            <tab id="tabEquipment" caption="msg://Equipment">
+                <groupBox>
+                    <dataGrid id="equipmentDataGrid" width="100%" height="300px" dataContainer="equipmentDc" editorEnabled="true" >
+                        <actions>
+                            <action id="create" type="create"/>
+                            <action id="edit" type="edit"/>
+                            <action id="remove" type="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="component" property="component"  />
+                            <column id="prim" property="prim" />
+                        </columns>
+                        <buttonsPanel>
+                            <button action="equipmentDataGrid.create"/>
+                            <button action="equipmentDataGrid.edit"/>
+                            <button action="equipmentDataGrid.remove"/>
+                        </buttonsPanel>
+                    </dataGrid>
+                </groupBox>
             </tab>
-            <tab caption="Movement" id="tabMovement">
-                <dataGrid id="movementDataGrid" height="300" width="100%" dataContainer="movementDc" editorEnabled="true" >
-                    <actions>
-                        <action id="create" type="create"/>
-                        <action id="edit" type="edit"/>
-                        <action id="remove" type="remove"/>
-                    </actions>
-                    <columns>
-                        <column property="person"/>
-                        <column property="startDate"/>
-                        <column property="endDate"/>
-                        <column property="prim"/>
-                    </columns>
-                    <buttonsPanel>
-                        <button action="movementDataGrid.create"/>
-                        <button action="movementDataGrid.edit"/>
-                        <button action="movementDataGrid.remove"/>
-                    </buttonsPanel>
-                </dataGrid>
+            <tab caption="msg://Movement" id="tabMovement">
+                <groupBox>
+                    <dataGrid id="movementDataGrid" height="300" width="100%" dataContainer="movementDc" editorEnabled="true" >
+                        <actions>
+                            <action id="create" type="create"/>
+                            <action id="edit" type="edit"/>
+                            <action id="remove" type="remove"/>
+                        </actions>
+                        <columns>
+                            <column property="person"/>
+                            <column property="startDate"/>
+                            <column property="endDate"/>
+                            <column property="prim"/>
+                        </columns>
+                        <buttonsPanel>
+                            <button action="movementDataGrid.create"/>
+                            <button action="movementDataGrid.edit"/>
+                            <button action="movementDataGrid.remove"/>
+                        </buttonsPanel>
+                    </dataGrid>
+                </groupBox>
             </tab>
         </tabSheet>
         <!--groupBox id="equipmentBox" caption="msg://com.company.technika.entity/Technika.equipment">

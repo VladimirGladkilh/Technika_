@@ -16,11 +16,14 @@ import javax.validation.constraints.NotNull;
 public class Component extends StandardEntity {
     private static final long serialVersionUID = -8318975988050538217L;
 
-    @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
+    @Lookup(type = LookupType.DROPDOWN, actions = "lookup")
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "DEVICE_ID")
     protected Device device;
+
+    @Column(name = "PRIM", length = 512)
+    protected String prim;
 
     @NotNull
     @Column(name = "SERIAL_NUMBER", nullable = false)
@@ -36,10 +39,18 @@ public class Component extends StandardEntity {
     protected Boolean busy;
 
     @OnDelete(DeletePolicy.UNLINK)
-    @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
+    @Lookup(type = LookupType.DROPDOWN, actions = "lookup")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COSTNAME_ID")
     protected Cost costName;
+
+    public String getPrim() {
+        return prim;
+    }
+
+    public void setPrim(String prim) {
+        this.prim = prim;
+    }
 
     public void setCostName(Cost costName) {
         this.costName = costName;

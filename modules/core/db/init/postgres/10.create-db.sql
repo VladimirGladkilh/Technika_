@@ -85,6 +85,7 @@ create table TECHNIKA_COMPONENT (
     DELETED_BY varchar(50),
     --
     DEVICE_ID uuid not null,
+    PRIM varchar(512),
     SERIAL_NUMBER varchar(255) not null,
     PRICE double precision,
     LOW_PRICE double precision,
@@ -179,6 +180,7 @@ create table TECHNIKA_DEVICE (
     VENDOR_ID uuid not null,
     MODEL varchar(255) not null,
     PRIM varchar(512),
+    NAME varchar(255),
     --
     primary key (ID)
 )^
