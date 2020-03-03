@@ -1,6 +1,8 @@
 package com.company.technika.entity;
 
 import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.cuba.core.entity.annotation.Lookup;
+import com.haulmont.cuba.core.entity.annotation.LookupType;
 import com.haulmont.cuba.core.entity.annotation.OnDelete;
 import com.haulmont.cuba.core.global.DeletePolicy;
 
@@ -13,15 +15,15 @@ import java.util.Date;
 public class Movement extends StandardEntity {
     private static final long serialVersionUID = 8942724609536089529L;
 
-    @NotNull
+    @Lookup(type = LookupType.DROPDOWN, actions = "lookup")
     @OnDelete(DeletePolicy.UNLINK)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PERSON_ID")
     protected Person person;
 
-    @NotNull
+    @Lookup(type = LookupType.DROPDOWN, actions = "lookup")
     @OnDelete(DeletePolicy.UNLINK)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TECHNIKA_ID")
     protected Technika technika;
 

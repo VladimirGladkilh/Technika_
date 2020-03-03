@@ -8,7 +8,7 @@ import com.haulmont.cuba.core.entity.annotation.LookupType;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@NamePattern("%s %s %s|type,vendor,model")
+@NamePattern("%s|name")
 @Table(name = "TECHNIKA_DEVICE")
 @Entity(name = "technika_Device")
 public class Device extends StandardEntity {

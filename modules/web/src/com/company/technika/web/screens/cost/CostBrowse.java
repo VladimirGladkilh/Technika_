@@ -61,7 +61,7 @@ public class CostBrowse extends StandardLookup<Cost> {
     @Subscribe("costsTable")
     public void onCostsTableEditorClose(DataGrid.EditorCloseEvent event) {
         Cost selected = costsTable.getEditedItem();
-        if (selected == null) {
+        if (selected == null && currentEntity != null) {
             dataContext.remove(currentEntity);
         }
         getScreenData().loadAll();
@@ -69,35 +69,7 @@ public class CostBrowse extends StandardLookup<Cost> {
 
     @Subscribe("costsTable")
     public void onCostsTableEditorPostCommit(DataGrid.EditorPostCommitEvent event) {
-        String message = "";
-        String val = "Скорректируйте значение "+ costsTable.getEditedItem().getSubject();
-        try {
-            getScreenData().getDataContext().commit();
-        }
-        catch (EntityExistsException ex){
-            message = "Сущность уже существует. " + ex.getLocalizedMessage();
-        }
-        catch (NonUniqueResultException ex){
-            message = "Значение уже существует. " +ex.getLocalizedMessage();
-        }
-        catch (TransactionRequiredException ex){
-            message = "Ошибка транзакции. " +ex.getLocalizedMessage();
-        }
-        catch (RollbackException ex){
-            message = "Ошибка отката. " +ex.getLocalizedMessage();
-        }
-        catch (RemoteException ex){
-            message = "Ошибка внутри сервера. " +ex.getLocalizedMessage();
-        }
-        catch (Exception ex){
-            message = "Видимо что то случилось. " +ex.getLocalizedMessage();
-        }
-        if (!message.equals("")){
-            notifications.create(Notifications.NotificationType.ERROR)
-                    .withCaption("Ошибка сохранения")
-                    .withDescription(message + '\n'+ val)
-                    .show();
-        }
+        getScreenData().getDataContext().commit();
     }
 
     @Inject
@@ -152,7 +124,7 @@ public class CostBrowse extends StandardLookup<Cost> {
         costsDl.load();
     }
 
-    @Subscribe("my")
+   /* @Subscribe("my")
     public void onMyClick(Button.ClickEvent event) {
         String costQuery="select p from technika_Cost p where lower(trim(p.num))=:name and p.deleteTs is null";
         LoadContext<Cost> lcp = LoadContext.create(Cost.class)
@@ -162,7 +134,7 @@ public class CostBrowse extends StandardLookup<Cost> {
         String s= dataManager.load(lcp).getSubject();
         notifications.create().withDescription(s).show();
 
-    }
+    }*/
 
 
     

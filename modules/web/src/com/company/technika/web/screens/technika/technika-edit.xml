@@ -8,17 +8,19 @@
                   class="com.company.technika.entity.Technika"
                   view="technika-edit">
             <loader/>
-            <collection id="equipmentDc" property="equipment"/>
+            <collection id="equipmentDc" property="equipment">
+
+            </collection>
             <collection id="movementDc" property="movement"/>
         </instance>
     </data>
     <dialogMode height="600"
                 width="800"/>
     <layout expand="editActions" spacing="true">
-        <form id="form" dataContainer="technikaDc">
+        <form id="form" dataContainer="technikaDc" width="500px">
             <column width="250px">
-                <textField id="nameField" property="name" />
-                <textArea id="primField" property="prim" />
+                <textField id="nameField" property="name" width="500"/>
+                <textArea id="primField" property="prim" align="TOP_LEFT" width="500"/>
             </column>
         </form>
         <tabSheet>
@@ -31,7 +33,7 @@
                             <action id="remove" type="remove"/>
                         </actions>
                         <columns>
-                            <column id="component" property="component"  />
+                            <column id="component" property="component" />
                             <column id="prim" property="prim" />
                         </columns>
                         <buttonsPanel>
@@ -65,23 +67,6 @@
                 </groupBox>
             </tab>
         </tabSheet>
-        <!--groupBox id="equipmentBox" caption="msg://com.company.technika.entity/Technika.equipment">
-            <table id="equipmentTable" dataContainer="equipmentDc" width="100%" height="200px">
-                <actions>
-                    <action id="create" type="create"/>
-                    <action id="edit" type="edit"/>
-                    <action id="remove" type="remove"/>
-                </actions>
-                <columns>
-                    <column id="component"/>
-                </columns>
-                <buttonsPanel>
-                    <button action="equipmentTable.create"/>
-                    <button action="equipmentTable.edit"/>
-                    <button action="equipmentTable.remove"/>
-                </buttonsPanel>
-            </table>
-        </groupBox-->
 
         <hbox id="editActions" spacing="true">
             <button action="windowCommitAndClose"/>

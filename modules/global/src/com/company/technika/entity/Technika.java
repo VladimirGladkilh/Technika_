@@ -14,8 +14,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @NamePattern("%s|name")
-@Table(name = "TECHNIKA_TECHIKA")
-@Entity(name = "technika_Techika")
+@Table(name = "TECHNIKA_TECHNIKA")
+@Entity(name = "technika_Technika")
 public class Technika extends StandardEntity {
     private static final long serialVersionUID = -1209842386933506234L;
 
@@ -27,12 +27,12 @@ public class Technika extends StandardEntity {
     protected String prim;
 
     @Composition
-    @OnDelete(DeletePolicy.UNLINK)
+    @OnDelete(DeletePolicy.CASCADE)
     @OneToMany(mappedBy = "technika")
     protected List<Equipment> equipment;
 
     @Composition
-    @OnDelete(DeletePolicy.UNLINK)
+    @OnDelete(DeletePolicy.CASCADE)
     @OneToMany(mappedBy = "technika")
     protected List<Movement> movement;
 

@@ -9,7 +9,7 @@
                     view="_local">
             <loader id="technikasDl">
                 <query>
-                    <![CDATA[select e from technika_Techika e]]>
+                    <![CDATA[select e from technika_Technika e]]>
                 </query>
             </loader>
         </collection>

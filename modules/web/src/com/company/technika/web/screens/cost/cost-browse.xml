@@ -49,7 +49,6 @@
                 <button id="removeBtn" action="costsTable.remove"/>
                 <button id="excelBtn" action="costsTable.excel"/>
                 <upload id="upload"/>
-                <button id="my"/>
             </buttonsPanel>
             <rowsCount/>
         </dataGrid>

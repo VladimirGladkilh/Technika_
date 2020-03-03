@@ -1,18 +1,23 @@
 package com.company.technika.web.screens.technika;
 
 import com.company.technika.entity.*;
+import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.RemoteException;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Action;
 import com.haulmont.cuba.gui.components.DataGrid;
+import com.haulmont.cuba.gui.components.Field;
+import com.haulmont.cuba.gui.components.LookupField;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.model.DataContext;
 import com.haulmont.cuba.gui.model.InstanceContainer;
 import com.haulmont.cuba.gui.screen.*;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
-@UiController("technika_Techika.edit")
+@UiController("technika_Technika.edit")
 @UiDescriptor("technika-edit.xml")
 @EditedEntityContainer("technikaDc")
 @LoadDataBeforeShow
@@ -40,6 +45,11 @@ public class TechnikaEdit extends StandardEditor<Technika> {
             dataContext.remove(currentEquipment);
         }
         getScreenData().loadAll();
+    }
+
+    @Subscribe(id = "equipmentDc", target = Target.DATA_CONTAINER)
+    public void onEquipmentDcItemPropertyChange(InstanceContainer.ItemPropertyChangeEvent<Equipment> event) {
+        
     }
 
     @Subscribe("equipmentDataGrid")
@@ -85,7 +95,7 @@ public class TechnikaEdit extends StandardEditor<Technika> {
     public void onMovementDataGridEditorClose(DataGrid.EditorCloseEvent event) {
         Movement selectedMovement = movementDataGrid.getEditedItem();
         if (selectedMovement == null && currentMovement != null){
-            dataContext.remove(selectedMovement);
+            dataContext.remove(currentMovement);
         }
         getScreenData().loadAll();
     }
@@ -125,6 +135,8 @@ public class TechnikaEdit extends StandardEditor<Technika> {
         currentEntity = getEditedEntity();
     }
 
+
+
     @Subscribe(target = Target.DATA_CONTEXT)
     public void onPreCommit(DataContext.PreCommitEvent event) {
         if (getEditedEntity().getName()== null && equipmentDataGrid.getItems().size()>0) {
@@ -132,12 +144,16 @@ public class TechnikaEdit extends StandardEditor<Technika> {
             if (component != null) {
                 Device device = component.getDevice();
                 if (device != null) {
-                    String dName = device.getName();
+                    String dName =  device.getName();
                     getEditedEntity().setName(dName + " "+ component.getSerialNumber());
                 }
             }
         }
     }
+
+
+
+
 
 
 

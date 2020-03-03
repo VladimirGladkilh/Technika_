@@ -10,8 +10,8 @@
         <property name="vendor" view="_minimal"/>
     </view>
     <view entity="technika_Component" name="component-view" extends="_local">
-        <property name="device" view="_minimal"/>
-        <property name="costName" view="_minimal"/>
+        <property name="device" view="device-view"/>
+        <property name="costName" view="_local"/>
     </view>
     <view entity="technika_Cost" name="cost-browser" extends="_local">
         <property name="contragent" view="_minimal"/>
@@ -24,11 +24,16 @@
         <property name="post" view="_minimal"/>
     </view>
     <view entity="technika_Equipment" name="equipment-view" extends="_local">
+        <property name="technika" view="_minimal"/>
+        <property name="component" view="_minimal">
+            <property name="busy"/>
+            <property name="costName" view="cost-browser"/>
+        </property>
     </view>
     <view entity="technika_Equipment" name="equipment-view_fortech" extends="_local">
-        <property name="component" view="_minimal"/>
+        <property name="component" view="component-view"/>
     </view>
-    <view entity="technika_Techika" name="technika-edit" extends="_local">
+    <view entity="technika_Technika" name="technika-edit" extends="_local">
         <property name="equipment" view="equipment-view_fortech"/>
         <property name="movement" view="movement-view_fortech"/>
     </view>

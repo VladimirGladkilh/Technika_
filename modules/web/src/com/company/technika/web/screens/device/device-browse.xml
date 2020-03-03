@@ -37,6 +37,7 @@
                 <column property="vendor"/>
                 <column property="model"/>
                 <column property="prim"/>
+                <column id="name" property="name" enable="false"/>
             </columns>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">

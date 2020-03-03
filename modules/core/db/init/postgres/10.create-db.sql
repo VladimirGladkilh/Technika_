@@ -111,23 +111,7 @@ create table TECHNIKA_DEVICE_TYPE (
     primary key (ID)
 )^
 -- end TECHNIKA_DEVICE_TYPE
--- begin TECHNIKA_TECHIKA
-create table TECHNIKA_TECHIKA (
-    ID uuid,
-    VERSION integer not null,
-    CREATE_TS timestamp,
-    CREATED_BY varchar(50),
-    UPDATE_TS timestamp,
-    UPDATED_BY varchar(50),
-    DELETE_TS timestamp,
-    DELETED_BY varchar(50),
-    --
-    NAME varchar(255) not null,
-    PRIM varchar(255),
-    --
-    primary key (ID)
-)^
--- end TECHNIKA_TECHIKA
+
 -- begin TECHNIKA_MOVEMENT
 create table TECHNIKA_MOVEMENT (
     ID uuid,
@@ -139,8 +123,8 @@ create table TECHNIKA_MOVEMENT (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    PERSON_ID uuid not null,
-    TECHNIKA_ID uuid not null,
+    PERSON_ID uuid,
+    TECHNIKA_ID uuid,
     START_DATE date not null,
     END_DATE date,
     PRIM varchar(255),
@@ -218,8 +202,8 @@ create table TECHNIKA_EQUIPMENT (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    TECHNIKA_ID uuid not null,
-    COMPONENT_ID uuid not null,
+    TECHNIKA_ID uuid,
+    COMPONENT_ID uuid,
     PRIM varchar(255),
     --
     primary key (ID)
@@ -244,3 +228,20 @@ create table TECHNIKA_CONTRAGENT (
     primary key (ID)
 )^
 -- end TECHNIKA_CONTRAGENT
+-- begin TECHNIKA_TECHNIKA
+create table TECHNIKA_TECHNIKA (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255) not null,
+    PRIM varchar(255),
+    --
+    primary key (ID)
+)^
+-- end TECHNIKA_TECHNIKA

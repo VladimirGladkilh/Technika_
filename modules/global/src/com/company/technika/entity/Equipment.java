@@ -8,7 +8,6 @@ import com.haulmont.cuba.core.entity.annotation.OnDelete;
 import com.haulmont.cuba.core.global.DeletePolicy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @NamePattern("%s %s|technika,component")
 @Table(name = "TECHNIKA_EQUIPMENT")
@@ -16,17 +15,15 @@ import javax.validation.constraints.NotNull;
 public class Equipment extends StandardEntity {
     private static final long serialVersionUID = 6023256051658221557L;
 
-    @NotNull
-    @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
     @OnDelete(DeletePolicy.UNLINK)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @Lookup(type = LookupType.DROPDOWN, actions = "lookup")
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TECHNIKA_ID")
     protected Technika technika;
 
     @OnDelete(DeletePolicy.UNLINK)
-    @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @Lookup(type = LookupType.DROPDOWN, actions = "lookup")
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMPONENT_ID")
     protected Component component;
 
