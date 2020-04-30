@@ -375,15 +375,12 @@ public class EntityImportServiceBean implements EntityImportService {
 
         for (String[] oneRecord : multiRow){
             try {
-                //String name = oneRecord[1];
                 Component component = componentFactory.create(oneRecord[1], oneRecord[2], oneRecord[3], oneRecord[4], oneRecord[5], oneRecord[6]);
                 componentRepository.save(component);
                 loadedRecords = loadedRecords + 1;
-                //s =oneRecord[1] +"; "+ oneRecord[2] + "; "+oneRecord[3] +"; "+ oneRecord[4] +"; "+ oneRecord[5] +"; "+ oneRecord[6];
             }
             catch (Exception ex){
                 ex.printStackTrace();
-                //s =oneRecord[1] + oneRecord[2] + oneRecord[3] + oneRecord[4] + oneRecord[5] + oneRecord[6];
                 errorValues = String.format("%s%n%s", errorValues , ex.getLocalizedMessage());
             }
         }
